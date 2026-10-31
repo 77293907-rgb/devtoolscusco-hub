@@ -1,0 +1,199 @@
+/* =========================================================
+   devToolsCusco — styles.css (FINAL)
+   Complementa Tailwind. Se organiza en:
+     1. Base y accesibilidad
+     2. Header (sombra + estado scroll)
+     3. Hero (animaciones fade-up escalonadas)
+     4. Reveal on scroll
+     5. Menú móvil (transición slide)
+     6. Tarjetas tilt + spotlight
+     7. Back-to-top
+     8. prefers-reduced-motion (desactiva todo)
+   ========================================================= */
+
+/* =========================================================
+   1. BASE Y ACCESIBILIDAD
+   ========================================================= */
+
+/* Smooth scroll nativo (respaldo si JS se desactiva) */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* compensa navbar sticky */
+}
+
+/* Foco visible accesible */
+:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   2. HEADER
+   ========================================================= */
+
+/* Sombra suave al hacer scroll (la clase la añade JS) */
+#site-header.is-scrolled {
+  box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.18);
+}
+
+/* Transición base del header (para el "hide on scroll down") */
+#site-header {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease,
+              background-color 0.3s ease;
+}
+
+/* Ocultar al bajar (JS añade la clase) */
+#site-header.is-hidden {
+  transform: translateY(-100%);
+}
+
+/* =========================================================
+   3. HERO — Animaciones fade-up escalonadas
+   ========================================================= */
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-anim {
+  opacity: 0;
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-anim-1 { animation-delay: 0.05s; }
+.hero-anim-2 { animation-delay: 0.15s; }
+.hero-anim-3 { animation-delay: 0.30s; }
+.hero-anim-4 { animation-delay: 0.45s; }
+.hero-anim-5 { animation-delay: 0.60s; }
+
+/* =========================================================
+   4. REVEAL ON SCROLL
+   ========================================================= */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   5. MENÚ MÓVIL — Transición slide
+   ========================================================= */
+
+#mobile-menu {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.25s ease;
+}
+
+#mobile-menu.is-open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* Cuando usamos .is-open, ya no dependemos de .hidden */
+#mobile-menu:not(.hidden).is-open {
+  display: block;
+}
+/* =========================================================
+   6. TARJETAS — Tilt 3D + Cursor Spotlight
+   ========================================================= */
+
+[data-tilt] {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+}
+
+[data-tilt] .tilt-inner {
+  transform: translateZ(20px);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Cursor spotlight: usa --mx/--my definidas por JS */
+[data-tilt]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(16, 185, 129, 0.10),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+[data-tilt].is-hovered::before {
+  opacity: 1;
+}
+
+/* =========================================================
+   7. BACK TO TOP — Mostrar / Ocultar
+   ========================================================= */
+
+#back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* =========================================================
+   8. PREFERS-REDUCED-MOTION — Desactiva todo lo animado
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-anim {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  #site-header,
+  [data-tilt],
+  [data-tilt]::before,
+  #mobile-menu,
+  #back-to-top {
+    transition: none !important;
+  }
+
+  [data-tilt] {
+    transform: none !important;
+  }
+
+  [data-tilt]::before {
+    display: none;
+  }
+}
