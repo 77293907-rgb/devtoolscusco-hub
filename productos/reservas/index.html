@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Rinconcito Cusqueño | Sabor Auténtico</title>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Config con paleta criolla/cálida -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            adobe: { 50: '#fdf5f3', 500: '#b03e29', 600: '#943221', 700: '#7a2a1a' },
+            maiz: { 50: '#fdf9f0', 500: '#d49a3a', 600: '#b07e2a' },
+            huerto: { 500: '#4a6b4a', 600: '#3d593d' },
+            cal: { 50: '#fdfbf7', 100: '#f5eee4' },
+            ink: { 900: '#2b1f1a', 700: '#4a3f39' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Playfair Display', 'serif'],
+            serif: ['Lora', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Estilos extra -->
+  <link rel="stylesheet" href="css/restaurante.css" />
+</head>
+<body class="font-sans bg-cal-50 text-ink-900 antialiased">
+
+  <!-- ========================================== -->
+  <!-- NAVBAR -->
+  <!-- ========================================== -->
+  <header class="absolute top-0 w-full z-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <!-- Icono tipo "olla" o "sol" andino -->
+        <div class="h-11 w-11 rounded-full bg-adobe-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+          <svg class="h-6 w-6 text-cal-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display text-xl font-bold text-cal-50 leading-tight tracking-wide drop-shadow">El Rinconcito</span>
+          <span class="font-serif italic text-maiz-500 text-sm leading-tight drop-shadow">Cusqueño</span>
+        </div>
+      </a>
+
+      <!-- Menú Desktop -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-cal-50">
+        <a href="#platos" class="hover:text-maiz-500 transition-colors">Nuestra Carta</a>
+        <a href="#espacios" class="hover:text-maiz-500 transition-colors">Espacios</a>
+        <a href="#nosotros" class="hover:text-maiz-500 transition-colors">Nosotros</a>
+        <a href="#reservas" class="rounded-full bg-maiz-500 text-ink-900 px-6 py-2.5 font-bold hover:bg-maiz-600 hover:text-cal-50 transition-all shadow-lg hover:-translate-y-0.5">
+          Reservar Mesa
+        </a>
+      </nav>
+      
+    </div>
+  </header>
+    <!-- ========================================== -->
+  <!-- HERO (Portada) -->
+  <!-- ========================================== -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden bg-gray-900">
+    
+    <!-- Fondo con Imagen y Overlay -->
+    <div class="absolute inset-0 z-0">
+      <!-- Imagen de Cusco (Usa la ruta de tu imagen local) -->
+      <img 
+        src="img/cusco-view.jpg" 
+        alt="Vista de la ciudad del Cusco" 
+        class="w-full h-full object-cover object-center" 
+        style="opacity: 0.9;"
+      />
+      
+      <!-- Overlay oscuro usando CSS puro (esto nunca falla) -->
+      <div 
+        class="absolute inset-0" 
+        style="background: linear-gradient(to top, rgba(43, 31, 26, 1) 0%, rgba(43, 31, 26, 0.7) 50%, rgba(43, 31, 26, 0.3) 100%);">
+      </div>
+    </div>
+
+    <!-- Contenido de la Portada -->
+    <div class="text-center px-4 max-w-4xl mx-auto relative z-10">
+      
+      <!-- Insignia -->
+      <span class="inline-block py-1 px-3 rounded-full bg-[#b03e29]/30 text-[#d49a3a] text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-md border border-[#d49a3a]/30 shadow-lg">
+        Tradición y Sabor en el Cusco
+      </span>
+      
+      <!-- Título -->
+      <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none mb-6 drop-shadow-2xl">
+        Lo mejor de <br/> <span class="text-[#d49a3a] italic font-serif">nuestra tierra</span>
+      </h1>
+      
+      <!-- Subtítulo -->
+      <p class="text-lg md:text-xl text-gray-100 font-serif max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-lg">
+        Un rincón acogedor donde los sabores de antaño se encuentran con la calidez de hoy. Te esperamos para compartir la mesa.
+      </p>
+      
+      <!-- Botones -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#platos" class="rounded-full bg-[#b03e29] text-white px-8 py-4 text-base font-semibold hover:bg-[#943221] transition-all shadow-xl hover:-translate-y-1">
+          Ver la Carta
+        </a>
+        <a href="#reservas" class="rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 text-base font-semibold hover:bg-white/20 transition-all">
+          Reservar Mesa
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- CARTA / PLATOS (Inyectado por JS) -->
+  <!-- ========================================== -->
+  <section id="platos" class="py-24 bg-cal-50 relative">
+    <!-- Separador decorativo rupestre -->
+    <div class="absolute top-0 left-0 w-full overflow-hidden leading-none transform -translate-y-px">
+      <svg class="relative block w-full h-12 text-cal-100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 120">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="currentColor"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-4">Nuestra Carta</h2>
+        <p class="font-serif text-ink-700 text-lg italic">"Platos preparados con leña, sazón y cariño."</p>
+      </div>
+
+      <!-- Grid de Platos -->
+      <div id="grid-platos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- JS inyectará aquí -->
+      </div>
+    </div>
+  </section>
+    <!-- ========================================== -->
+  <!-- SECCIÓN NOSOTROS -->
+  <!-- ========================================== -->
+  <section id="nosotros" class="py-24 bg-cal-100 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        
+        <!-- Imagen (puedes cambiarla por una foto real de cocina) -->
+        <div class="relative">
+          <div class="absolute -inset-4 bg-maiz-500/20 rounded-2xl transform rotate-3"></div>
+          <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop" alt="Cocina cusqueña" class="relative rounded-2xl shadow-2xl object-cover h-[500px] w-full" />
+        </div>
+
+        <!-- Texto -->
+        <div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-6">Nuestra Historia</h2>
+          <p class="font-serif text-lg text-ink-700 leading-relaxed mb-6">
+            Nacimos con la idea de rescatar los sabores de nuestras abuelas. En <strong class="text-adobe-600">El Rinconcito Cusqueño</strong>, cada plato es preparado a fuego lento, con ingredientes traídos directamente de los mercados locales y el cariño de nuestra gente.
+          </p>
+          <p class="font-serif text-lg text-ink-700 leading-relaxed mb-8">
+            No solo servimos comida; compartimos un pedacito de nuestra cultura, nuestra historia y el calor de hogar que caracteriza al Cusco.
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 rounded-full bg-huerto-500 flex items-center justify-center text-cal-50">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            </div>
+            <div>
+              <p class="font-bold text-ink-900">100% Artesanal</p>
+              <p class="text-sm text-ink-700">Sazón tradicional cusqueña</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECCIÓN ESPACIOS -->
+  <!-- ========================================== -->
+  <section id="espacios" class="py-24 bg-cal-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-4">Nuestros Espacios</h2>
+        <p class="font-serif text-ink-700 text-lg italic">Elige el ambiente perfecto para tu visita.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Espacio 1 -->
+        <div class="group relative rounded-xl overflow-hidden h-[350px] shadow-lg cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Salón Principal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-6">
+            <h3 class="font-display text-2xl font-bold text-cal-50 mb-1">Salón Principal</h3>
+            <p class="text-cal-100 text-sm font-serif">El corazón del Rinconcito, lleno de vida y música.</p>
+          </div>
+        </div>
+
+        <!-- Espacio 2 -->
+        <div class="group relative rounded-xl overflow-hidden h-[350px] shadow-lg cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop" alt="Terraza" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-6">
+            <h3 class="font-display text-2xl font-bold text-cal-50 mb-1">Terraza Andina</h3>
+            <p class="text-cal-100 text-sm font-serif">Perfecta para atardeceres con vista a la ciudad.</p>
+          </div>
+        </div>
+
+        <!-- Espacio 3 -->
+        <div class="group relative rounded-xl overflow-hidden h-[350px] shadow-lg cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop" alt="Patio Interior" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-6">
+            <h3 class="font-display text-2xl font-bold text-cal-50 mb-1">Patio Rústico</h3>
+            <p class="text-cal-100 text-sm font-serif">Rodeado de plantas y piedra, para momentos íntimos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECCIÓN DE RESERVAS (El Formulario) -->
+  <!-- ========================================== -->
+  <section id="reservas" class="py-24 bg-adobe-500 relative overflow-hidden">
+    <!-- Patrón de fondo rupestre -->
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="bg-cal-50 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Info lateral -->
+        <div class="bg-ink-900 p-8 md:w-1/3 flex flex-col justify-center text-center md:text-left">
+          <h3 class="font-display text-3xl font-bold text-maiz-500 mb-4">Te esperamos</h3>
+          <p class="font-serif text-cal-100 text-sm leading-relaxed mb-6">
+            Reserva tu mesa de forma rápida y asegura tu lugar en nuestro rincón favorito del Cusco.
+          </p>
+          <div class="space-y-4 text-cal-100 text-sm">
+            <p class="flex items-center justify-center md:justify-start gap-2">
+              <svg class="h-5 w-5 text-maiz-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Lun - Dom: 12:00 - 23:00
+            </p>
+            <p class="flex items-center justify-center md:justify-start gap-2">
+              <svg class="h-5 w-5 text-maiz-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              Calle San Blas, Cusco
+            </p>
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <div class="p-8 md:w-2/3">
+          <form id="form-reserva" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-semibold text-ink-900 mb-1">Nombre completo</label>
+                <input type="text" id="res-nombre" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition" placeholder="Ej. Juan Pérez">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-ink-900 mb-1">Teléfono / WhatsApp</label>
+                <input type="tel" id="res-telefono" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition" placeholder="+51 999 999 999">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div>
+                <label class="block text-sm font-semibold text-ink-900 mb-1">Fecha</label>
+                <input type="date" id="res-fecha" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-ink-900 mb-1">Hora</label>
+                <input type="time" id="res-hora" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-ink-900 mb-1">Personas</label>
+                <select id="res-personas" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition">
+                  <option value="1">1 Persona</option>
+                  <option value="2" selected>2 Personas</option>
+                  <option value="3">3 Personas</option>
+                  <option value="4">4 Personas</option>
+                  <option value="5">5 Personas</option>
+                  <option value="6">6+ Personas</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-ink-900 mb-1">Notas adicionales (Opcional)</label>
+              <textarea id="res-notas" rows="2" class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition" placeholder="¿Alguna alergia o pedido especial?"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-adobe-500 text-cal-50 font-bold text-lg rounded-lg py-3.5 hover:bg-adobe-600 transition-colors shadow-lg shadow-adobe-500/30 mt-2">
+              Confirmar Reserva
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- FOOTER MÍNIMO PROVISIONAL -->
+  <!-- ========================================== -->
+  <footer class="bg-ink-900 py-12 text-center text-cal-100 text-sm font-serif">
+    <p>&copy; 2024 El Rinconcito Cusqueño. Todos los derechos reservados.</p>
+    <p class="mt-2 text-xs text-ink-700">Desarrollado por <a href="../../index.html" class="text-maiz-500 hover:underline">devToolsCusco</a></p>
+  </footer>
+
+  <!-- Botón Flotante de Reserva (Intuitivo) -->
+  <a href="#reservas" class="fixed bottom-6 right-6 z-40 bg-adobe-500 text-cal-50 p-4 rounded-full shadow-2xl hover:bg-adobe-600 hover:scale-105 transition-all md:hidden flex items-center justify-center animate-bounce">
+    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+  </a>
+
+  <!-- SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

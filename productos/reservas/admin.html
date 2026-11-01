@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso al Sistema | El Rinconcito Cusqueño</title>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            adobe: { 500: '#b03e29', 600: '#943221' },
+            maiz: { 500: '#d49a3a' },
+            ink: { 900: '#2b1f1a', 800: '#3a2b24', 700: '#4a3f39' },
+            cal: { 50: '#fdfbf7', 100: '#f5eee4' }
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-gray-100 font-sans text-ink-900 h-screen flex overflow-hidden">
+
+  <!-- ========================================== -->
+  <!-- PANTALLA DE LOGIN (Rediseñada) -->
+  <!-- ========================================== -->
+  <div id="pantalla-login" class="fixed inset-0 z-50 flex bg-white">
+    
+    <!-- Lado Izquierdo (Imagen a color con overlay) -->
+    <div class="hidden md:flex md:w-1/2 relative bg-ink-900 items-center justify-center overflow-hidden">
+      <!-- Imagen (asegúrate de que la ruta sea correcta) -->
+      <img src="img/cusco-view.jpg" alt="Cusco" class="absolute inset-0 w-full h-full object-cover" />
+      <!-- Capa oscura para que el texto blanco resalte -->
+      <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/60 to-transparent"></div>
+      
+      <div class="relative z-10 text-center px-10">
+        <div class="h-24 w-24 mx-auto rounded-full bg-adobe-500 flex items-center justify-center shadow-2xl mb-6 border-4 border-white/20">
+          <svg class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <h1 class="text-4xl font-bold text-white mb-2">El Rinconcito</h1>
+        <p class="text-maiz-500 text-xl font-medium tracking-widest uppercase mb-6">Cusqueño</p>
+        <p class="text-gray-200 max-w-sm mx-auto text-sm leading-relaxed">Sistema de gestión interno. Área restringida para personal autorizado.</p>
+      </div>
+    </div>
+
+    <!-- Lado Derecho (Formulario Premium) -->
+    <div class="w-full md:w-1/2 flex items-center justify-center p-8 bg-cal-50">
+      <div class="max-w-md w-full bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-cal-100">
+        
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-display font-bold text-ink-900 mb-2">Bienvenido</h2>
+          <p class="text-gray-500 text-sm">Ingresa tus credenciales para continuar</p>
+        </div>
+
+        <!-- Formulario de Login -->
+        <form id="login-form" class="space-y-5">
+          <div>
+            <label class="block text-sm font-semibold text-ink-900 mb-2">Usuario</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              </div>
+              <input type="text" id="login-usuario" required class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-3 focus:ring-2 focus:ring-adobe-500 focus:border-adobe-500 outline-none transition" placeholder="Ej. admin">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-ink-900 mb-2">Contraseña</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              </div>
+              <input type="password" id="login-password" required class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-3 focus:ring-2 focus:ring-adobe-500 focus:border-adobe-500 outline-none transition" placeholder="••••••••">
+            </div>
+          </div>
+          
+          <div class="pt-4 flex flex-col gap-3">
+            <button type="button" onclick="loginRapido('admin')" class="w-full py-3.5 bg-ink-900 text-white rounded-lg font-bold hover:bg-ink-800 transition-colors shadow-lg flex justify-center items-center gap-2">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              Entrar como Dueño (Admin)
+            </button>
+            <button type="button" onclick="loginRapido('vendedor')" class="w-full py-3.5 border-2 border-adobe-500 text-adobe-500 rounded-lg font-bold hover:bg-adobe-50 transition-colors flex justify-center items-center gap-2">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              Entrar como Vendedor
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- APLICACIÓN (Oculta hasta hacer login) -->
+  <!-- ========================================== -->
+  <div id="app-panel" class="hidden w-full h-full flex overflow-hidden">
+    
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-ink-900 text-cal-100 flex flex-col shadow-2xl z-20">
+      <div class="h-20 flex items-center gap-3 px-6 border-b border-ink-700">
+        <div class="h-10 w-10 rounded-full bg-adobe-500 flex items-center justify-center shadow-lg">
+          <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div>
+          <p class="font-bold text-sm leading-tight text-white">El Rinconcito</p>
+          <p class="text-xs text-maiz-500 font-medium" id="rol-usuario">Panel Admin</p>
+        </div>
+      </div>
+
+      <nav class="flex-1 py-6 px-4 space-y-2">
+        <!-- Solo visible para Admin -->
+        <a href="#" onclick="cambiarVista('resumen')" id="nav-resumen" class="hidden flex items-center gap-3 px-4 py-3 rounded-lg text-cal-100 hover:bg-white/5 transition-colors">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          Resumen
+        </a>
+        <!-- Platos (Ambos ven, pero vendedor no puede borrar) -->
+        <a href="#" onclick="cambiarVista('platos')" id="nav-platos" class="flex items-center gap-3 px-4 py-3 rounded-lg text-cal-100 hover:bg-white/5 transition-colors">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          Menú de Platos
+        </a>
+        <!-- Reservas (Ambos ven) -->
+        <a href="#" onclick="cambiarVista('reservas')" id="nav-reservas" class="flex items-center gap-3 px-4 py-3 rounded-lg text-cal-100 hover:bg-white/5 transition-colors">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Reservas
+        </a>
+      </nav>
+
+      <div class="p-4 border-t border-ink-700">
+        <button onclick="cerrarSesion()" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-colors text-sm font-medium">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Cerrar Sesión
+        </button>
+        <a href="index.html" class="mt-2 flex items-center justify-center gap-2 px-4 py-2 text-xs text-gray-400 hover:text-white transition-colors">
+          Ir a la web pública
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-gray-50">
+      <header class="h-20 bg-white shadow-sm flex items-center justify-between px-8 z-10">
+        <h1 id="titulo-seccion" class="text-2xl font-bold text-ink-900">Resumen General</h1>
+        <div class="flex items-center gap-4">
+          <div class="text-right hidden sm:block">
+            <p class="text-sm font-bold text-ink-900" id="nombre-usuario">Usuario</p>
+            <p class="text-xs text-gray-500" id="correo-usuario">correo@rinconcito.com</p>
+          </div>
+          <div class="h-10 w-10 rounded-full bg-adobe-500 flex items-center justify-center text-white font-bold shadow-md">
+            <span id="inicial-usuario">U</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="flex-1 overflow-y-auto p-8 relative">
+        
+        <!-- VISTA 1: RESUMEN (Solo Admin) -->
+        <div id="vista-resumen" class="hidden animate-[fadeIn_0.3s_ease-out]">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <p class="text-sm text-gray-500 font-medium mb-1">Ingresos Estimados (Mes)</p>
+              <p class="text-3xl font-bold text-ink-900" id="kpi-ingresos">S/ 0.00</p>
+              <p class="text-xs text-green-600 mt-2 font-medium">↑ 15% vs mes anterior</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <p class="text-sm text-gray-500 font-medium mb-1">Total de Reservas</p>
+              <p class="text-3xl font-bold text-ink-900" id="kpi-reservas">0</p>
+              <p class="text-xs text-gray-500 mt-2 font-medium">En los últimos 30 días</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <p class="text-sm text-gray-500 font-medium mb-1">Platos en Carta</p>
+              <p class="text-3xl font-bold text-ink-900" id="kpi-platos">0</p>
+              <p class="text-xs text-gray-500 mt-2 font-medium">Activos en la web</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-64 flex items-center justify-center text-gray-400">
+            <p>Gráfico de ventas (Próximamente)</p>
+          </div>
+        </div>
+
+        <!-- VISTA 2: PLATOS -->
+        <div id="vista-platos" class="hidden animate-[fadeIn_0.3s_ease-out]">
+          <div class="flex justify-between items-center mb-6">
+            <p class="text-gray-500">Administra los platos que aparecen en la página web.</p>
+            <!-- Botón visible para ambos, pero validamos en JS quién es -->
+            <button onclick="abrirModalPlato()" class="bg-adobe-500 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-adobe-600 transition-colors flex items-center gap-2 shadow-lg shadow-adobe-500/30">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              Agregar Plato
+            </button>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                  <th class="p-4 font-medium">Plato</th>
+                  <th class="p-4 font-medium">Categoría</th>
+                  <th class="p-4 font-medium">Precio</th>
+                  <th class="p-4 font-medium text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-platos-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VISTA 3: RESERVAS -->
+        <div id="vista-reservas" class="hidden animate-[fadeIn_0.3s_ease-out]">
+          <div class="flex justify-between items-center mb-6">
+            <p class="text-gray-500">Gestiona las reservas de los clientes.</p>
+            <button onclick="abrirModalReserva()" class="bg-ink-900 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-ink-800 transition-colors flex items-center gap-2 shadow-lg">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              Agregar Reserva (Manual)
+            </button>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                  <th class="p-4 font-medium">Cliente</th>
+                  <th class="p-4 font-medium">Fecha / Hora</th>
+                  <th class="p-4 font-medium">Personas</th>
+                  <th class="p-4 font-medium">Estado</th>
+                  <th class="p-4 font-medium text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-reservas-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODALES (Plato y Reserva) -->
+   <!-- MODAL: AGREGAR RESERVA MANUAL (Para el Vendedor/Admin) -->
+  <div id="modal-reserva" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-[scaleIn_0.2s_ease-out]">
+      <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+        <h3 class="font-bold text-lg text-ink-900">Nueva Reserva Manual</h3>
+        <button onclick="cerrarModalReserva()" class="text-gray-400 hover:text-red-500 transition-colors">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      
+      <form id="form-reserva-admin" class="p-6 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Nombre Cliente</label>
+            <input type="text" id="admin-res-nombre" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+            <input type="tel" id="admin-res-telefono" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+            <input type="date" id="admin-res-fecha" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Hora</label>
+            <input type="time" id="admin-res-hora" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Pers.</label>
+            <input type="number" id="admin-res-personas" min="1" required value="2" class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none text-sm">
+          </div>
+        </div>
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="cerrarModalReserva()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">Cancelar</button>
+          <button type="submit" class="flex-1 px-4 py-2 bg-ink-900 text-white rounded-lg hover:bg-ink-800 font-medium shadow-lg">Guardar Reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+    <!-- MODAL: AGREGAR PLATO -->
+  <div id="modal-plato" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+        <h3 class="font-bold text-lg text-ink-900">Nuevo Plato</h3>
+        <button onclick="cerrarModalPlato()" class="text-gray-400 hover:text-red-500 transition-colors">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      
+      <form id="form-plato" class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del Plato</label>
+          <input type="text" id="plato-nombre" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Precio (S/)</label>
+            <input type="number" step="0.01" id="plato-precio" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
+            <select id="plato-categoria" class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none">
+              <option value="Especialidad">Especialidad</option>
+              <option value="Criollo">Criollo</option>
+              <option value="Sopas">Sopas</option>
+              <option value="Bebida">Bebida</option>
+              <option value="Postre">Postre</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Ruta de la Imagen</label>
+          <input type="text" id="plato-imagen" placeholder="Ej: img/mi-plato.jpg" required class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+          <textarea id="plato-desc" required rows="2" class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-adobe-500 outline-none text-sm"></textarea>
+        </div>
+        
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="cerrarModalPlato()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">Cancelar</button>
+          <button type="submit" class="flex-1 px-4 py-2 bg-adobe-500 text-white rounded-lg hover:bg-adobe-600 font-medium shadow-lg">Guardar Plato</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="js/admin.js"></script>
+</body>
+</html>
