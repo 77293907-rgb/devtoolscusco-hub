@@ -49,6 +49,7 @@ function iniciarSesion(rol) {
   actualizarKPIs();
   renderizarTablaPlatos();
   renderizarTablaReservas();
+  dibujarGraficoVentas(); // <-- AÑADIR ESTA LÍNEA
 }
 
 function cerrarSesion() {
@@ -76,6 +77,7 @@ function cambiarVista(vista) {
     document.getElementById('nav-resumen').className = "flex items-center gap-3 px-4 py-3 rounded-lg bg-adobe-500/10 text-maiz-500 border border-adobe-500/20 font-medium transition-colors";
     document.getElementById('titulo-seccion').textContent = "Resumen General";
     actualizarKPIs();
+    dibujarGraficoVentas(); // <-- AÑADIR ESTA LÍNEA
   } 
   else if (vista === 'platos') {
     document.getElementById('vista-platos').classList.remove('hidden');
@@ -314,4 +316,92 @@ if (formReservaAdmin) {
     renderizarTablaReservas();
     actualizarKPIs();
   });
+}
+
+/* =========================================================
+   6. GRÁFICO DE VENTAS (SVG Dinámico)
+   ========================================================= */
+function dibujarGraficoVentas() {
+  const contenedor = document.getElementById('contenedor-grafico');
+  if (!contenedor) return;
+
+  // 1. Datos simulados (en un sistema real, esto vendría del backend)
+  const datos = [
+    { dia: 'Lun', valor: 120 },
+    { dia: 'Mar', valor: 240 },
+    { dia: 'Mié', valor: 180 },
+    { dia: 'Jue', valor: 350 },
+    { dia: 'Vie', valor: 480 },
+    { dia: 'Sáb', valor: 620 },
+    { dia: 'Dom', valor: 510 }
+  ];
+
+  const maxValor = Math.max(...datos.map(d => d.valor));
+  const paddingX = 40;
+  const paddingY = 20;
+  const anchoTotal = contenedor.clientWidth || 600; // Respaldo si aún no se renderiza
+  const altoTotal = 256; // h-64 en Tailwind
+  
+  const anchoUtil = anchoTotal - (paddingX * 2);
+  const altoUtil = altoTotal - (paddingY * 2);
+  const anchoBarra = (anchoUtil / datos.length) * 0.5; // Las barras ocupan el 50% del espacio
+  const espacioBarra = (anchoUtil / datos.length);
+
+  // 2. Construir el SVG
+  let svg = `<svg viewBox="0 0 ${anchoTotal} ${altoTotal}" class="w-full h-full overflow-visible">`;
+
+  // Líneas guías horizontales (opcionales, le dan un look profesional)
+  for (let i = 0; i <= 4; i++) {
+    const y = paddingY + (altoUtil / 4) * i;
+    svg += `<line x1="${paddingX}" y1="${y}" x2="${anchoTotal - paddingX}" y2="${y}" stroke="#f3f4f6" stroke-width="1" />`;
+  }
+
+  // Dibujar cada barra
+  datos.forEach((dato, index) => {
+    const alturaBarra = (dato.valor / maxValor) * altoUtil;
+    const x = paddingX + (espacioBarra * index) + (espacioBarra - anchoBarra) / 2;
+    const y = altoTotal - paddingY - alturaBarra;
+
+    // Barra con animación de crecimiento
+    svg += `
+      <g class="group">
+        <!-- Tooltip (Aparece al pasar el mouse) -->
+        <text x="${x + anchoBarra/2}" y="${y - 10}" text-anchor="middle" class="text-[10px] font-bold fill-ink-900 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          S/ ${dato.valor}
+        </text>
+        
+        <!-- Rectángulo de la barra -->
+        <rect 
+          x="${x}" 
+          y="${y}" 
+          width="${anchoBarra}" 
+          height="${alturaBarra}" 
+          rx="4" 
+          fill="url(#gradienteBarra)" 
+          class="transition-all duration-300 group-hover:brightness-110 cursor-pointer"
+        >
+          <animate attributeName="height" from="0" to="${alturaBarra}" dur="0.8s" fill="freeze" />
+          <animate attributeName="y" from="${altoTotal - paddingY}" to="${y}" dur="0.8s" fill="freeze" />
+        </rect>
+        
+        <!-- Etiqueta del día abajo -->
+        <text x="${x + anchoBarra/2}" y="${altoTotal - 2}" text-anchor="middle" class="text-[11px] font-medium fill-gray-500">
+          ${dato.dia}
+        </text>
+      </g>
+    `;
+  });
+
+  // Definir gradiente para las barras
+  svg += `
+    <defs>
+      <linearGradient id="gradienteBarra" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d49a3a" /> <!-- maiz -->
+        <stop offset="100%" stop-color="#b03e29" /> <!-- adobe -->
+      </linearGradient>
+    </defs>
+  </svg>`;
+
+  // 3. Inyectar en el HTML
+  contenedor.innerHTML = svg;
 }

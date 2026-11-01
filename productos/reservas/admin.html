@@ -178,8 +178,16 @@
               <p class="text-xs text-gray-500 mt-2 font-medium">Activos en la web</p>
             </div>
           </div>
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-64 flex items-center justify-center text-gray-400">
-            <p>Gráfico de ventas (Próximamente)</p>
+          <!-- Gráfico de Ventas -->
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="font-bold text-lg text-ink-900">Ingresos (Últimos 7 días)</h3>
+              <span class="text-xs font-medium bg-green-100 text-green-700 px-2.5 py-1 rounded-full">Tendencia al alza</span>
+            </div>
+            <!-- Contenedor donde JS dibujará el SVG -->
+            <div id="contenedor-grafico" class="w-full h-64 relative">
+              <!-- Aquí se inyectará el gráfico -->
+            </div>
           </div>
         </div>
 
@@ -329,7 +337,7 @@
       </form>
     </div>
   </div>
-  
+
   <script src="js/admin.js"></script>
 </body>
 </html>
