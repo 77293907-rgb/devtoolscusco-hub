@@ -1,0 +1,31 @@
+/* Efectos de Neón y Resplandor */
+.neon-text {
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.5), 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+.neon-border {
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.15) inset, 0 0 15px rgba(34, 211, 238, 0.15);
+}
+
+/* Fondo con Textura de Malla (Grid) futurista */
+.bg-grid {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a; 
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f1f; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #22d3ee; 
+}

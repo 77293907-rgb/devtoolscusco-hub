@@ -1,0 +1,40 @@
+/* =========================================
+   Inkari Art - Estilos Personalizados
+   ========================================= */
+
+:root {
+  --color-bg: #f9f7f2;
+  --color-text: #2c251e;
+  --color-accent: #c85a3e;
+  --color-gold: #d4af37;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Patrón sutil de fondo andino */
+.bg-pattern {
+  background-image: radial-gradient(var(--color-text) 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+  opacity: 0.03;
+}
+
+/* Ocultar la barra de scroll en los filtros del catálogo */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Efecto de elevación suave para las tarjetas de producto */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
